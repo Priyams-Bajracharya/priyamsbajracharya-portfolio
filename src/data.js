@@ -9,7 +9,7 @@ export const site = {
   email: 'priyams.bajracharya@gmail.com',
   github: 'https://github.com/Priyams-Bajracharya',
   linkedin: 'https://www.linkedin.com/in/priyams-bajracharya-74a603333',
-  cvUrl: '/cv/Priyams-Ratna-Bajracharya-CV.pdf', // TODO: drop the real CV file into public/cv/
+  cvUrl: '/Priyams_Bajracharya_CV.pdf',
   domain: 'https://priyamsbajracharya.com.np',
 };
 

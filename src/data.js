@@ -98,6 +98,12 @@ export const projectsSection = {
   kicker: '02 / transform',
 };
 
+// Each project's case study follows: Overview -> Problem it solves ->
+// Architecture (diagram) -> How it works -> Tech Stack -> Challenges & Fixes
+// -> What I'd Improve -> GitHub link. There is deliberately no "My Role"
+// field — these case studies describe the project, not the contributor.
+// For team projects (`team: true`), the UI only ever shows a small
+// "Team project" badge; no contribution/role text is rendered anywhere.
 export const projects = [
   {
     id: 'healthcare-dw',
@@ -131,10 +137,12 @@ export const projects = [
       },
     },
     caseStudy: {
+      overview:
+        'A data warehouse for healthcare encounter data, built around a star schema so analytical queries run against a model designed for reporting instead of joining across an operational schema.',
       problem:
         'TODO: describe the specific analytics questions this warehouse was built to answer (e.g. encounter volume trends, cost-per-diagnosis reporting) and who the data was for.',
-      myRole:
-        'Designed the star schema, wrote the Python ETL (extract → transform → incremental load), and orchestrated the pipeline with Airflow.',
+      howItWorks:
+        'A Python ETL pipeline extracts source encounter data, transforms it into the star schema below, and loads it incrementally — only new or changed encounters are processed on each run — orchestrated by Airflow.',
       challenges:
         'TODO: add a specific bug/decision worth telling — e.g. how incremental loading was made idempotent, or a data-quality issue caught in the diagnosis dimension.',
       improvements:
@@ -176,12 +184,14 @@ export const projects = [
       },
     },
     caseStudy: {
+      overview:
+        'A warehouse that turns ride-hailing trip data into an analytics-friendly star schema, built to practice the full OLTP-to-warehouse pipeline end to end.',
       problem:
         'Ride-hailing trip data lived in a normalized 3NF OLTP schema (10 tables) optimized for transactional writes, not analytics — answering a question like "average fare by time-of-day and zone" meant joining across most of the schema every time.',
-      myRole:
-        'Designed the OLTP → star-schema transformation end to end: the 3NF source schema, the fact_trips + 8-dimension target schema, and an idempotent Python ETL pipeline (PostgreSQL, ON CONFLICT DO NOTHING) tested against 10,000 synthetic trips generated with Faker.',
+      howItWorks:
+        'A Python ETL pipeline reads from the 3NF OLTP schema and loads fact_trips plus its 8 dimension tables using upserts (PostgreSQL\'s ON CONFLICT DO NOTHING), so re-running the pipeline is idempotent. The pipeline is tested against 10,000 synthetic trips generated with Faker.',
       challenges:
-        'Found and fixed a schema-drift bug: a NOT NULL time_key column was added to fact_trips, but the ETL script was not updated to populate it, so every load after the migration failed on the NOT NULL constraint until I traced it back and patched the transform step to derive and populate time_key correctly.',
+        'Found and fixed a schema-drift bug: a NOT NULL time_key column was added to fact_trips, but the ETL script was not updated to populate it, so every load after the migration failed on the NOT NULL constraint until the transform step was patched to derive and populate time_key correctly.',
       improvements:
         'With more time: SCD Type 2 on the slowly-changing dimensions (driver rating, vehicle category), Airflow orchestration instead of manual runs, a dead-letter table to capture and inspect rows that fail transformation instead of silently dropping them, and partitioning fact_trips by date for query performance at scale.',
     },
@@ -191,8 +201,8 @@ export const projects = [
     title: 'Adaptive Traffic Signal Controller',
     team: true,
     summary:
-      'A team project exploring signal timing that adapts to real-time traffic conditions instead of running on fixed cycles.',
-    techStack: ['Python'], // TODO: fill in the real tech stack (sensors/simulation framework/etc.)
+      'A team project using Deep Q-Learning (DQN) to adjust traffic signal timing based on traffic conditions, instead of running on fixed cycles.',
+    techStack: ['Python', 'Deep Q-Learning (DQN)'], // TODO: add the rest of the real stack (simulation environment, RL library, etc.)
     githubUrl: 'https://github.com/Priyams-Bajracharya', // TODO: link the specific repo
     screenshot: {
       file: 'traffic-signal-demo.webp',
@@ -200,14 +210,19 @@ export const projects = [
       height: 900,
       alt: 'TODO: describe the screenshot once added (e.g. simulation dashboard or hardware demo)',
     },
-    architecture: { type: 'none' },
+    architecture: {
+      type: 'none',
+      description: 'TODO: describe the DQN setup (state/action/reward design) and the simulation environment it runs in (e.g. SUMO).',
+    },
     caseStudy: {
+      overview:
+        'An adaptive traffic signal controller that uses Deep Q-Learning (DQN) to adjust signal timing based on traffic conditions, instead of running on fixed cycles.',
       problem:
-        'TODO: describe the problem this team project addressed and the approach taken.',
-      myRole:
-        'Team project. My role was planning, key technical decisions, and leading the results presentation.',
-      challenges: 'TODO: add a specific challenge from the project.',
-      improvements: 'TODO: what would the team improve with more time?',
+        "TODO: describe the specific traffic scenario/simulation this project targeted and why fixed-cycle signals fall short there.",
+      howItWorks:
+        'TODO: describe the data flow — how traffic state is observed, how the DQN agent selects a signal-timing action, and how that action is applied back to the intersection.',
+      challenges: 'TODO: add a specific challenge from the project (e.g. reward shaping, training stability, simulation realism).',
+      improvements: 'TODO: what would the team improve with more time? (e.g. more intersections, real traffic data, a stronger baseline comparison.)',
     },
   },
   {
@@ -223,10 +238,14 @@ export const projects = [
       height: 900,
       alt: 'TODO: describe the screenshot once added',
     },
-    architecture: { type: 'none' },
+    architecture: {
+      type: 'none',
+      description: 'TODO: describe the forecasting model/pipeline architecture.',
+    },
     caseStudy: {
+      overview: 'TODO: one or two lines on the forecasting approach and what makes it notable.',
       problem: 'TODO: describe the forecasting problem and data sources used.',
-      myRole: 'TODO',
+      howItWorks: 'TODO: describe the data flow — data source -> preprocessing -> model -> forecast output.',
       challenges: 'TODO: add a specific challenge from the project.',
       improvements: 'TODO: what would the team improve with more time?',
     },

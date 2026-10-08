@@ -44,9 +44,12 @@ The whole site is themed as a data pipeline, executed with restraint:
    Distinction, 82.90% → Data Analyst intern at Nimble Clinical Research
    (Sept 2026–present, clinical data / SDTM in SAS).
    Leave clear TODO placeholders where I need to adjust dates or wording.
-3. Projects: case-study cards that expand into a full view with
-   Problem → Architecture (diagram) → My Role → Tech Stack →
-   Challenges & Fixes → What I'd Improve → GitHub link.
+3. Projects: case-study cards that expand into a full view, focused on the
+   PROJECT itself rather than personal contribution: Overview → Problem It
+   Solves → Architecture (diagram) → How It Works (data flow / key
+   components) → Tech Stack → Challenges & Fixes → What I'd Improve →
+   GitHub link. No "My Role" section anywhere. For team projects, the UI
+   only shows a small "Team project" badge — no contribution text.
    a. Healthcare Analytics Data Warehouse: star schema, Python ETL,
       incremental loading, Airflow DAG.
    b. Ride-Hailing Analytics Data Warehouse: 3NF OLTP schema (10 tables)
@@ -55,10 +58,13 @@ The whole site is themed as a data pipeline, executed with restraint:
       Faker. Challenge: found and fixed a schema-drift bug (time_key added
       as NOT NULL but ETL not updated). Improvements: SCD Type 2, Airflow
       orchestration, dead-letter table, partitioning fact_trips by date.
-   c. Adaptive Traffic Signal Controller: TEAM project. My role was
-      planning, key technical decisions, and leading the results
-      presentation. Label it clearly as a team project.
-   d. AQI Forecast: TEAM project. Leave "My Role" as a TODO for me.
+   c. Adaptive Traffic Signal Controller: TEAM project (badge only, no role
+      text). Uses Deep Q-Learning (DQN) to adjust signal timing based on
+      traffic conditions instead of fixed cycles. Other specifics (dataset,
+      simulation environment, results) are TODO in src/data.js until known
+      — not invented.
+   d. AQI Forecast: TEAM project (badge only, no role text). Specifics are
+      TODO in src/data.js until known.
 4. Skills: grouped visual layout, not a progress-bar list (no fake
    percentages). Groups: Data Engineering (ETL, data warehousing, star
    schema, Airflow), Databases (PostgreSQL, SQL), Languages (Python, SQL,

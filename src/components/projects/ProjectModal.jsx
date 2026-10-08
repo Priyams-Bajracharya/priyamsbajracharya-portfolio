@@ -6,14 +6,16 @@ import { Badge } from '../common/Badge';
 import { ImagePlaceholder } from '../common/ImagePlaceholder';
 import { StarSchemaDiagram } from './StarSchemaDiagram';
 
-function ModalField({ label, value }) {
+function todoAwareClassName(value) {
   const isTodo = value.trim().toUpperCase().startsWith('TODO');
+  return `mt-1 text-sm ${isTodo ? 'rounded border border-dashed border-accent px-2 py-1 text-accent' : 'text-text-secondary'}`;
+}
+
+function ModalField({ label, value }) {
   return (
     <div>
       <dt className="font-mono text-xs uppercase tracking-wide text-text-muted">{label}</dt>
-      <dd className={`mt-1 text-sm ${isTodo ? 'rounded border border-dashed border-accent px-2 py-1 text-accent' : 'text-text-secondary'}`}>
-        {value}
-      </dd>
+      <dd className={todoAwareClassName(value)}>{value}</dd>
     </div>
   );
 }
@@ -83,16 +85,22 @@ export function ProjectModal({ project, onClose }) {
               className="mt-5 rounded-md"
             />
 
-            {project.architecture.type === 'star-schema' && (
-              <div className="mt-6">
-                <h4 className="font-mono text-xs uppercase tracking-wide text-text-muted">Architecture</h4>
+            <dl className="mt-6 space-y-5">
+              <ModalField label="Overview" value={project.caseStudy.overview} />
+              <ModalField label="Problem It Solves" value={project.caseStudy.problem} />
+            </dl>
+
+            <div className="mt-6">
+              <h4 className="font-mono text-xs uppercase tracking-wide text-text-muted">Architecture</h4>
+              {project.architecture.type === 'star-schema' ? (
                 <StarSchemaDiagram fact={project.architecture.schema.fact} dimensions={project.architecture.schema.dimensions} />
-              </div>
-            )}
+              ) : (
+                <p className={todoAwareClassName(project.architecture.description)}>{project.architecture.description}</p>
+              )}
+            </div>
 
             <dl className="mt-6 space-y-5">
-              <ModalField label="Problem" value={project.caseStudy.problem} />
-              <ModalField label="My Role" value={project.caseStudy.myRole} />
+              <ModalField label="How It Works" value={project.caseStudy.howItWorks} />
               <div>
                 <dt className="font-mono text-xs uppercase tracking-wide text-text-muted">Tech Stack</dt>
                 <dd className="mt-2 flex flex-wrap gap-2">

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://priyamsbajracharya.com.np/sitemap.xml

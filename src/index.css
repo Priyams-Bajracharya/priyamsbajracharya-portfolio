@@ -1,0 +1,84 @@
+@import 'tailwindcss';
+
+/* Self-hosted fonts: avoids extra cross-origin requests + gives us font-display control */
+@import '@fontsource-variable/space-grotesk';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+
+/* ---- Design tokens ---- */
+/* Dark is the default/showcase palette. Light overrides via [data-theme="light"]. */
+:root {
+  --color-bg-base: #07090a;
+  --color-bg-surface: #0e1314;
+  --color-bg-surface-2: #151b1c;
+  --color-border: #1f2727;
+  --color-grid-line: rgba(255, 255, 255, 0.035);
+  --color-text-primary: #f2f5f4;
+  --color-text-secondary: #9fb0ae;
+  --color-text-muted: #6b7a78;
+  --color-accent: #2dd4bf;
+  --color-accent-soft: #7cefdd;
+  --color-focus-ring: #2dd4bf;
+}
+
+[data-theme='light'] {
+  --color-bg-base: #fafbfa;
+  --color-bg-surface: #ffffff;
+  --color-bg-surface-2: #f1f4f3;
+  --color-border: #e2e8e7;
+  --color-grid-line: rgba(0, 0, 0, 0.04);
+  --color-text-primary: #0d1413;
+  --color-text-secondary: #4b5958;
+  --color-text-muted: #6b7a78;
+  --color-accent: #0f9488;
+  --color-accent-soft: #2dd4bf;
+  --color-focus-ring: #0f9488;
+}
+
+@theme inline {
+  --color-bg-base: var(--color-bg-base);
+  --color-bg-surface: var(--color-bg-surface);
+  --color-bg-surface-2: var(--color-bg-surface-2);
+  --color-border: var(--color-border);
+  --color-grid-line: var(--color-grid-line);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-accent: var(--color-accent);
+  --color-accent-soft: var(--color-accent-soft);
+
+  --font-sans: 'Space Grotesk Variable', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    background-image: linear-gradient(var(--color-grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* Visible focus states everywhere, keyboard-only via :focus-visible */
+  :focus-visible {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
